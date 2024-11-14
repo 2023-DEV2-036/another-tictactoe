@@ -19,6 +19,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -44,7 +45,8 @@ fun BoardScreen(viewModel: GameViewModel) {
                         modifier = Modifier
                             .size(100.dp)
                             .border(1.dp, Color.Black)
-                            .clickable { viewModel.onCellSelected(rowIndex, colIndex) },
+                            .clickable { viewModel.onCellSelected(rowIndex, colIndex) }
+                            .testTag("cell_${rowIndex}_$colIndex"),
                         contentAlignment = Alignment.Center
                     ) {
                         player?.let {
