@@ -1,25 +1,31 @@
 package com.eloetech.another_tictactoe.model
 
-import androidx.compose.ui.graphics.Color
 import com.eloetech.another_tictactoe.factory.PlayerFactory
 
 data class GameState(
     var board: Array<Array<Player?>> = Array(3) { arrayOfNulls<Player>(3) },
     val playerX: Player = PlayerFactory.createPlayer(PlayerSymbol.X),
     val playerO: Player = PlayerFactory.createPlayer(PlayerSymbol.O),
+    var currentPlayer: Player = playerX,
     var winner: Player? = null,
     var isDraw: Boolean = false
 ) {
 
-    var currentPlayer: Player = playerX
-        private set
-
     fun makeMove(row: Int, col: Int, player: Player? = null) {
         if (board[row][col] != null || winner != null) return
-        board[row][col] = player ?: currentPlayer
-        currentPlayer = PlayerFactory.nextPlayer(currentPlayer)
+        val newBoard = board.map { it.clone() }.toTypedArray()
+        newBoard[row][col] = player ?: currentPlayer
+        board = newBoard
+        currentPlayer = nextPlayer()
         winner = checkWinner()
         isDraw = checkDraw()
+    }
+
+    private fun nextPlayer(): Player {
+        return when (currentPlayer.symbol) {
+            PlayerSymbol.X -> playerO
+            PlayerSymbol.O -> playerX
+        }
     }
 
     private fun checkWinner(): Player? {
