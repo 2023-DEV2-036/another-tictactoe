@@ -2,6 +2,9 @@ package com.eloetech.another_tictactoe.model
 
 import com.eloetech.another_tictactoe.factory.PlayerFactory
 
+/**
+ * A model to hold all data regarding current game state.
+ */
 data class GameState(
     var board: Array<Array<Player?>> = Array(3) { arrayOfNulls<Player>(3) },
     val playerX: Player = PlayerFactory.createPlayer(PlayerSymbol.X),
@@ -11,8 +14,18 @@ data class GameState(
     var isDraw: Boolean = false
 ) {
 
+    /**
+     * Makes a move from a player
+     *
+     * @param row The selected row in the board
+     * @param col The selected column in the board
+     * @param player The player that is making a move. Defaults to *null*. If no value is specified, it will use the current player reference of this instance.
+     */
     fun makeMove(row: Int, col: Int, player: Player? = null) {
+        // Make sure no one already played in this coordinate and there is no winner
         if (board[row][col] != null || winner != null) return
+
+        // Update values accordingly
         val newBoard = board.map { it.clone() }.toTypedArray()
         newBoard[row][col] = player ?: currentPlayer
         board = newBoard
@@ -21,6 +34,10 @@ data class GameState(
         isDraw = checkDraw()
     }
 
+    /**
+     * Gets the next player to determine who's turn it is to play
+     * @return The next player
+     */
     private fun nextPlayer(): Player {
         return when (currentPlayer.symbol) {
             PlayerSymbol.X -> playerO
@@ -28,6 +45,10 @@ data class GameState(
         }
     }
 
+    /**
+     * Checks if there is a winner given the current board data.
+     * @return The winning Player if there is a winner, null otherwise.
+     */
     private fun checkWinner(): Player? {
         // Check rows for a win
         for (row in board) {
@@ -57,10 +78,18 @@ data class GameState(
         return null
     }
 
+    /**
+     * Checks for a draw game.
+     * @return true if there is a draw game, false otherwise.
+     */
     private fun checkDraw(): Boolean {
         return board.flatten().all { it != null } && winner == null
     }
 
+    /**
+     * Resets the game.
+     * Removes all previous moves from any player and restores initial values.
+     */
     fun resetGame() {
         board = Array(3) { arrayOfNulls<Player>(3) }
         currentPlayer = playerX

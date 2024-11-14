@@ -25,33 +25,33 @@ class GameViewModelTest {
 
     @Test
     fun `player X moves first`() {
-        viewModel.onCellClicked(0, 0)
+        viewModel.onCellSelected(0, 0)
         assertEquals("X", viewModel.state.value.board[0][0]?.symbol?.raw)
     }
 
     @Test
     fun `players alternate turns`() {
-        viewModel.onCellClicked(0, 0)
-        viewModel.onCellClicked(0, 1)
+        viewModel.onCellSelected(0, 0)
+        viewModel.onCellSelected(0, 1)
         assertEquals("X", viewModel.state.value.board[0][0]?.symbol?.raw)
         assertEquals("O", viewModel.state.value.board[0][1]?.symbol?.raw)
     }
 
     @Test
     fun `detect winning condition`() {
-        viewModel.onCellClicked(0, 0) // X
-        viewModel.onCellClicked(1, 0) // O
-        viewModel.onCellClicked(0, 1) // X
-        viewModel.onCellClicked(1, 1) // O
-        viewModel.onCellClicked(0, 2) // X wins
+        viewModel.onCellSelected(0, 0) // X
+        viewModel.onCellSelected(1, 0) // O
+        viewModel.onCellSelected(0, 1) // X
+        viewModel.onCellSelected(1, 1) // O
+        viewModel.onCellSelected(0, 2) // X wins
         assertEquals("X", viewModel.state.value.winner?.symbol?.raw)
     }
 
     @Test
     fun `reset game`() {
-        viewModel.onCellClicked(0, 0) // X
-        viewModel.onCellClicked(1, 0) // O
-        viewModel.onCellClicked(0, 1) // X
+        viewModel.onCellSelected(0, 0) // X
+        viewModel.onCellSelected(1, 0) // O
+        viewModel.onCellSelected(0, 1) // X
         viewModel.resetGame()
 
         var boardContainsPlayer = false

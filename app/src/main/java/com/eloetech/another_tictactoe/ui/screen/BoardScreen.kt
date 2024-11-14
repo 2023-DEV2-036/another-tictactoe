@@ -42,7 +42,7 @@ fun BoardScreen(viewModel: GameViewModel) {
                         modifier = Modifier
                             .size(100.dp)
                             .border(1.dp, Color.Black)
-                            .clickable { viewModel.onCellClicked(rowIndex, colIndex) },
+                            .clickable { viewModel.onCellSelected(rowIndex, colIndex) },
                         contentAlignment = Alignment.Center
                     ) {
                         player?.let {
