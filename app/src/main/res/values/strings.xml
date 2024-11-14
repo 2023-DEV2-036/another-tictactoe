@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">another-tictactoe</string>
+    <string name="tic_tac_toe">Tic Tac Toe</string>
+    <string name="turn_to_play">{player}\'s turn to play</string>
+    <string name="player_o">O</string>
+    <string name="winner">Winner</string>
+    <string name="draw">Draw</string>
+    <string name="suspense">Suspense…</string>
+    <string name="restart">Restart</string>
 </resources>

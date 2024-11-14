@@ -19,8 +19,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.eloetech.another_tictactoe.R
 import com.eloetech.another_tictactoe.viewmodel.GameViewModel
 
 @Composable
@@ -31,9 +33,9 @@ fun BoardScreen(viewModel: GameViewModel) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("Tic Tac Toe", style = MaterialTheme.typography.titleLarge)
+        Text(stringResource(R.string.tic_tac_toe), style = MaterialTheme.typography.titleLarge)
         Spacer(Modifier.height(8.dp))
-        Text("${state.currentPlayer.symbol.raw}'s turn to play")
+        Text(stringResource(R.string.turn_to_play).replace("{player}", state.currentPlayer.symbol.raw))
         Spacer(Modifier.height(8.dp))
         state.board.forEachIndexed { rowIndex, row ->
             Row {
@@ -58,15 +60,15 @@ fun BoardScreen(viewModel: GameViewModel) {
         }
         Spacer(Modifier.height(8.dp))
         Button(onClick = { viewModel.resetGame() }) {
-            Text("Restart")
+            Text(stringResource(R.string.restart))
         }
         Spacer(Modifier.height(8.dp))
         state.winner?.let {
-            Text("Winner: ${it.symbol.raw}")
+            Text("${stringResource(R.string.winner)}: ${it.symbol.raw}")
         } ?: if (state.isDraw) {
-            Text("Draw!")
+            Text(stringResource(R.string.draw))
         } else {
-            Text("Suspense...")
+            Text(stringResource(R.string.suspense))
         }
     }
 }
