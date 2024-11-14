@@ -13,12 +13,4 @@ object PlayerFactory {
 
         return Player(symbol, color)
     }
-
-    fun nextPlayer(currentPlayer: Player): Player {
-        val nextPlayerSymbol: PlayerSymbol = when (currentPlayer.symbol) {
-            PlayerSymbol.O -> PlayerSymbol.X
-            PlayerSymbol.X -> PlayerSymbol.O
-        }
-        return createPlayer(nextPlayerSymbol)
-    }
 }
